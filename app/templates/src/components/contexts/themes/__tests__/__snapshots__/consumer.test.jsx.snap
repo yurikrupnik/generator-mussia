@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`theme consumer render consumer 1`] = `
+<div>
+  <button
+    style="background:#eeeeee"
+    type="button"
+  >
+    Toggle
+  </button>
+</div>
+`;

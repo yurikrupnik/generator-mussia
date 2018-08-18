@@ -1,0 +1,11 @@
+:local .root {
+    color: orange;
+}
+
+:local .root:hover {
+    color: green;
+}
+
+.blue {
+    color: blue;
+}

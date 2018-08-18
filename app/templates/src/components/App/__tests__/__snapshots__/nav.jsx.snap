@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders <Nav /> component 1`] = `
+<header>
+  <button
+    onClick={[Function]}
+    type="button"
+  >
+    logout
+  </button>
+  <div
+    key="hello"
+  >
+    <Link
+      replace={false}
+      to="/hello"
+    >
+      hello
+    </Link>
+  </div>
+  <div
+    key="world"
+  >
+    <Link
+      replace={false}
+      to="/world"
+    >
+      world
+    </Link>
+  </div>
+</header>
+`;

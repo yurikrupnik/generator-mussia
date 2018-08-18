@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Router 1`] = `
+<div>
+  <h2>
+    s
+  </h2>
+  <Route
+    component={[Function]}
+    key="1"
+    path="/"
+  />
+</div>
+`;

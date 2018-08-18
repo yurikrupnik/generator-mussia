@@ -1,0 +1,119 @@
+{
+  "name": "<%= name %>",
+  "version": "1.0.0",
+  "description": "react-boilerplate",
+  "main": "src/server.jsx",
+  "scripts": {
+    "start": "npm run start:client & npm run start:server",
+    "start:client": "cross-env NODE_ENV=development webpack-serve --config webpack.config.serve.js",
+    "start:server": "cross-env NODE_ENV=development babel-watch --plugins dynamic-import-node src/server.jsx",
+    "start:mongo": "docker run --rm -d -p 27017:27017 --name mongo mongo",
+    "clean": "rimraf dist/",
+    "build": "npm run clean && npm run build:server & npm run build:client",
+    "build:server": "cross-env NODE_ENV=production webpack --config webpack.config.server.js",
+    "build:client": "cross-env NODE_ENV=production webpack --config webpack.config.client.js",
+    "lint": "eslint eslint --ext js,jsx src",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "deploy:test": "npm run lint && npm run test",
+    "deploy:build": "npm run deploy:test && npm run build && docker build -t yuri/react-bo . ",
+    "deploy:run": "docker run yuri/react-bo --hostname=yuri -p 49170:5000 -d ",
+    "debug:server": "cross-env NODE_ENV=development webpack --config webpack.config.server.js -w",
+    "debug:client": "cross-env NODE_ENV=development webpack --config webpack.config.client.js -w",
+    "debug": "npm run debug:server",
+    "dist": "npm run build && cd dist && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yurikrupnik/react-boilerplate.git"
+  },
+  "author": {
+    "name": "Yuri Krupnik",
+    "email": "krupnik.yuri@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yurikrupnik/react-boilerplate/issues"
+  },
+  "homepage": "https://github.com/yurikrupnik/react-boilerplate#readme",
+  "dependencies": {
+    "@material-ui/core": "^1.2.3",
+    "axios": "^0.18.0",
+    "bcrypt": "^1.0.3",
+    "connect-mongo": "^2.0.1",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "faker": "^4.1.0",
+    "flexboxgrid": "^6.3.1",
+    "mongoose": "^5.1.6",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-loadable": "^5.5.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "shortid": "^2.2.13" <%_ if(filters.ws) { -%>,
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1"
+<% } %>
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-dynamic-import-node": "^1.2.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-watch": "^2.0.7",
+    "connect-history-api-fallback": "^1.5.0",
+    "cross-env": "^5.2.0",
+    "css-loader": "^0.28.11",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.9.1",
+    "file-loader": "^1.1.11",
+    "generate-json-webpack-plugin": "^0.3.1",
+    "html-webpack-plugin": "^3.2.0",
+    "http-proxy-middleware": "^0.18.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^23.1.0",
+    "koa-connect": "^2.0.1",
+    "mini-css-extract-plugin": "^0.4.0",
+    "moxios": "^0.4.0",
+    "node-sass": "^4.9.0",
+    "optimize-css-assets-webpack-plugin": "^4.0.2",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.6",
+    "webpack": "^4.16.5",
+    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-node-externals": "^1.7.2",
+    "webpack-serve": "^1.0.4"
+  },
+  "jest": {
+    "setupFiles": [
+      "./jestsetup.js"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss)$": "identity-obj-proxy"
+    }
+  }
+}

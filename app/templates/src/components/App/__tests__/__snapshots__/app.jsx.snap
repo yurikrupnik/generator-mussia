@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders <App /> component 1`] = `
+<Providers
+  providers={
+    Array [
+      [Function],
+      [Function],
+      [Function],
+    ]
+  }
+>
+  <Layout
+    routes={
+      Array [
+        Object {
+          "component": [Function],
+          "key": "hello",
+          "path": "/hello",
+        },
+        Object {
+          "component": [Function],
+          "key": "world",
+          "path": "/world",
+        },
+      ]
+    }
+  />
+</Providers>
+`;

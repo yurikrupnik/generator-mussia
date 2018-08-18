@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataContainer Component render DataContainer without data 1`] = `<Component />`;
+
+exports[`DataContainer Component render consumer with data 1`] = `<Component />`;

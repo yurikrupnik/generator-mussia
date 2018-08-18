@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`theme provider should render <Provider /> 1`] = `
+<[object Object]
+  value={
+    Object {
+      "theme": Object {
+        "background": "#eeeeee",
+        "color": "red",
+        "foreground": "#000000",
+      },
+      "toggleTheme": [Function],
+    }
+  }
+>
+  <div>
+    asd
+  </div>
+</[object Object]>
+`;

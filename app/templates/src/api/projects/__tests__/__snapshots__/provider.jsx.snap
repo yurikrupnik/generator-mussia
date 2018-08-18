@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`projects provider renders Projects Provider 1`] = `
+<[object Object]
+  value={
+    Object {
+      "data": Array [],
+      "fetch": [Function],
+      "lastFetch": "",
+      "loading": false,
+      "selected": null,
+    }
+  }
+>
+  <Component />
+</[object Object]>
+`;
