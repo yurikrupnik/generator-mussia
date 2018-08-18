@@ -48,7 +48,7 @@ app.use((req, res, next) => {
 });
 app.use(render(App, routes));
 
-<%= filters.wss ? 'server(app)' : 'app' %>.listen(port, (err) => {
+<%= filters.ws ? 'server(app)' : 'app' %>.listen(port, (err) => {
     if (err) {
         console.log('err', err); // eslint-disable-line no-console
     } else {

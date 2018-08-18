@@ -1,4 +1,4 @@
-<%_ if (filters.db) { _%>
+<%_ if (filters.loadable) { _%>
 import Loadable from './Loadable';
 
 const Topics = Loadable({
@@ -35,7 +35,7 @@ const ChatRoom = Loadable({
 
 <%_ } _%>
 
-<%_ if (!filters.db) { _%>
+<%_ if (!filters.loadable) { _%>
 import Topics from './Topics';
 import Login from '../api/auth/container';
 import Dashboard from './Dashboard';
