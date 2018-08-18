@@ -8,8 +8,10 @@
     "react"
   ],
   "plugins": [
-    "transform-object-rest-spread",
     "syntax-dynamic-import",
-    "react-loadable/babel"
+<%_ if (filters.loadable) { _%>
+      "react-loadable/babel",
+<%_ } _%>
+    "transform-object-rest-spread"
   ]
 }

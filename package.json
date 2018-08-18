@@ -36,6 +36,7 @@
   ],
   "homepage": "https://github.com/yurikrupnik/generator-mussia#readme",
   "dependencies": {
+    "lodash.reduce": "^4.6.0",
     "yeoman-generator": "^3.1.1"
   }
 }

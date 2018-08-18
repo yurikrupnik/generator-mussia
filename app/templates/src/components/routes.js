@@ -1,76 +1,92 @@
+<%_ if (filters.db) { _%>
 import Loadable from './Loadable';
 
-const TopicsLoadableComponent = Loadable({
+const Topics = Loadable({
     loader: () => import(/* webpackChunkName: "topics" */ './Topics'),
 });
 
-const LoginLoadableComponent = Loadable({
+const Login = Loadable({
     loader: () => import(/* webpackChunkName: "login" */ '../api/auth/container'),
 });
 
-const DashboardLoadableComponent = Loadable({
+const Dashboard = Loadable({
     loader: () => import(/* webpackChunkName: "dashboard" */ './Dashboard'),
 });
 
-const ProjectsLoadableComponent = Loadable({
+const Projects = Loadable({
     loader: () => import(/* webpackChunkName: "projects" */ './Projects'),
 });
-const UsersLoadableComponent = Loadable({
+
+const Users = Loadable({
     loader: () => import(/* webpackChunkName: "users" */ './Users'),
 });
 
-const AboutLoadableComponent = Loadable({
+const About = Loadable({
     loader: () => import(/* webpackChunkName: "about" */ './About'),
 });
 
-const RegisterLoadableComponent = Loadable({
+const Register = Loadable({
     loader: () => import(/* webpackChunkName: "register" */ './Register'),
 });
 
-const ChatLoadableComponent = Loadable({
+const ChatRoom = Loadable({
     loader: () => import(/* webpackChunkName: "chat" */ './ChatRoom'),
 });
+
+<%_ } _%>
+
+<%_ if (!filters.db) { _%>
+import Topics from './Topics';
+import Login from '../api/auth/container';
+import Dashboard from './Dashboard';
+import Projects from './Projects';
+import About from './About';
+import Users from './Users';
+import Register from './Register';
+import ChatRoom from './ChatRoom';
+<% } %>
+
 
 const routes = [
     {
         path: '/',
-        component: DashboardLoadableComponent,
+        component: Dashboard,
         exact: true,
         key: 'dashboard'
     },
     {
         path: '/register',
-        component: RegisterLoadableComponent,
+        component: Register,
         key: 'register'
     },
     {
         path: '/login',
-        component: LoginLoadableComponent,
+        component: Login,
         key: 'login'
     },
     {
         path: '/about',
-        component: AboutLoadableComponent,
+        component: About,
         key: 'about'
     },
     {
         path: '/topics',
-        component: TopicsLoadableComponent,
+        component: Topics,
         key: 'topics'
     },
     {
         path: '/projects',
-        component: ProjectsLoadableComponent,
+        component: Projects,
         key: 'projects'
     },
     {
         path: '/users',
-        component: UsersLoadableComponent,
+        component: Users,
         key: 'users'
     },
     {
         path: '/chat',
-        component: ChatLoadableComponent,
+        component: ChatRoom,
         key: 'chat'
     }
 ];

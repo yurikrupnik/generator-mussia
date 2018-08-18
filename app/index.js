@@ -1,15 +1,22 @@
 var Generator = require('yeoman-generator');
 var reduce = require('lodash.reduce');
-// var child = require('child_process');
-// var exec = child.exec;
-// var pkg = require('../../package');
 const questions = require('./questions');
+
 class App extends Generator {
     constructor(args, opts) {
         super(args, opts);
         this.argument('appname', { type: String, required: true });
     }
 
+    _createFilters(answers) {
+        this.filters = reduce(answers, (acc, next, key) => {
+            acc[key] = Array.isArray(next) ? next.reduce((acc, next) => {
+                acc[next] = true;
+                return acc;
+            }, {}) : next;
+            return acc;
+        }, {});
+    }
 
     async prompting() {
         this.answers = await this.prompt(questions);
@@ -18,11 +25,11 @@ class App extends Generator {
     configuring() {
         this.destinationRoot(this.options.appname);
         this.config.save();
-        this._createFilters();
+        this._createFilters(this.answers);
     }
 
     _handleWebpack() {
-        if (this.answers.app) {
+        if (this.answers.fullstack) {
             this.fs.copy(
                 this.templatePath('webpack/**'),
                 this.destinationRoot(),
@@ -39,26 +46,8 @@ class App extends Generator {
         }
     }
 
-    static convertArrayToTrueValue(data) {
-        return data.reduce((acc, next) => {
-            acc[next] = true;
-            return acc;
-        }, {});
-    }
-
-    _createFilters() {
-        this.filters = reduce(this.answers, (acc, next, key) => {
-            acc[key] = Array.isArray(next) ? App.convertArrayToTrueValue(next) : next;
-            return acc;
-        }, {});
-    }
-
     writing() {
-
         const { answers, options, filters } = this;
-
-        console.log('answers', answers);
-        console.log('filters', filters);
         this.fs.copyTpl(
             this.templatePath('core/**'),
             this.destinationRoot(),
@@ -67,18 +56,21 @@ class App extends Generator {
                 filters
             }
         );
-        this.fs.copy(
+        this.fs.copyTpl(
             this.templatePath('core/.*'),
-            this.destinationRoot()
+            this.destinationRoot(),
+            { filters }
         );
-        this._handleWebpack();
+        this._handleWebpack(answers);
 
-        this.fs.copy(
+        this.fs.copyTpl(
             this.templatePath('src/'),
             this.destinationPath(`src`),
+            { filters }
         );
 
-        // console.log('this.answers', this.answers.stylesheet);
+        console.log('this.answers', this.answers);
+        console.log('this.filters', this.filters);
     }
 
     install() {
