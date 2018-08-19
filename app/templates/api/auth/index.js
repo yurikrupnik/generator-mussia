@@ -6,9 +6,9 @@ import { loginUrl, logoutUrl } from './config';
 const router = express.Router();
 
 router.post(loginUrl, passport.authenticate('local', { failWithError: true }),
-    (req, res, next) => res.redirect('/'),
-    (err, req, res, next) => {
-        console.log('err', err);
+    (req, res) => res.redirect('/'),
+    (err, req, res) => {
+        console.log('err', err); // eslint-disable-line no-console
         res.redirect('/login');
     });
 

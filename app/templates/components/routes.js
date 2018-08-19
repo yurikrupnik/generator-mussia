@@ -22,7 +22,7 @@ const Users = Loadable({
 });
 
 const About = Loadable({
-    loader: () => import(/* webpackChunkName: "about" */ './About'),
+    loader: () => import(/* webpackChunkName: "about" */ './about'),
 });
 
 const Register = Loadable({
@@ -32,20 +32,17 @@ const Register = Loadable({
 const ChatRoom = Loadable({
     loader: () => import(/* webpackChunkName: "chat" */ './ChatRoom'),
 });
-
 <%_ } _%>
-
 <%_ if (!filters.loadable) { _%>
 import Topics from './Topics';
 import Login from '../api/auth/container';
 import Dashboard from './Dashboard';
 import Projects from './Projects';
-import About from './About';
+import About from './about';
 import Users from './Users';
 import Register from './Register';
 import ChatRoom from './ChatRoom';
-<% } %>
-
+<%_ } _%>
 
 const routes = [
     {

@@ -28,8 +28,24 @@ class App extends Generator {
         this._createFilters(this.answers);
     }
 
-    _handleWebpack() {
-        if (this.answers.fullstack) {
+    _handleCore(filters, options) {
+        this.fs.copyTpl(
+            this.templatePath('core/**'),
+            this.destinationRoot(),
+            {
+                name: options.appname,
+                filters
+            }
+        );
+        this.fs.copyTpl(
+            this.templatePath('core/.*'),
+            this.destinationRoot(),
+            { filters }
+        );
+    }
+
+    _handleWebpack(answers) {
+        if (answers.fullstack) {
             this.fs.copy(
                 this.templatePath('webpack/**'),
                 this.destinationRoot(),
@@ -46,22 +62,39 @@ class App extends Generator {
         }
     }
 
-    writing() {
-        const { answers, options, filters } = this;
+    _handleServices(answers) {
+        if (answers.fullstack) {
+            this.fs.copy(
+                this.templatePath('services/**'),
+                this.destinationPath('src/services'),
+            );
+        }
+    }
+
+    _handleApi(filters) {
         this.fs.copyTpl(
-            this.templatePath('core/**'),
-            this.destinationRoot(),
-            {
-                name: options.appname,
-                filters
-            }
-        );
-        this.fs.copyTpl(
-            this.templatePath('core/.*'),
-            this.destinationRoot(),
+            this.templatePath('api/**'),
+            this.destinationPath('src/api'),
             { filters }
         );
+    }
+
+    _handleComponents(filters) {
+        this.fs.copyTpl(
+            this.templatePath('components/**'),
+            this.destinationPath('src/components'),
+            { filters }
+        );
+    }
+
+    writing() {
+        const { answers, options, filters } = this;
+
+        this._handleServices(answers);
         this._handleWebpack(answers);
+        this._handleCore(filters, options);
+        this._handleApi(filters);
+        this._handleComponents(filters);
 
         this.fs.copyTpl(
             this.templatePath('src/'),
@@ -74,7 +107,7 @@ class App extends Generator {
     }
 
     install() {
-        // this.npmInstall();
+        this.npmInstall();
     }
 
     end() {

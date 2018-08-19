@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import routes from './routes';
-import Router from '../Router';
+import Router from '../Router/index';
 
 const Topics = (props) => {
     const { match } = props;

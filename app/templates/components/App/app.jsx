@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Providers from './providers';
-import { Provider } from '../contexts/themes';
+import { Provider } from '../contexts/themes/index';
 import apiProviders from '../../api/providers';
 import Layout from './layout';
 

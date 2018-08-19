@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run start:client & npm run start:server",
     "start:client": "cross-env NODE_ENV=development webpack-serve --config webpack.config.serve.js",
-    "start:server": "cross-env NODE_ENV=development babel-watch --plugins dynamic-import-node src/server.jsx",
+    "start:server": "cross-env NODE_ENV=development nodemon --plugins dynamic-import-node src/server.jsx",
     "start:mongo": "docker run --rm -d -p 27017:27017 --name mongo mongo",
     "clean": "rimraf dist/",
     "build": "npm run clean && npm run build:server & npm run build:client",
@@ -50,7 +50,9 @@
 <%_ if(filters.db) { _%>
     "express-session": "^1.15.6",
 <%_ } _%>
+<%_ if(filters.auth) { _%>
     "faker": "^4.1.0",
+<%_ } _%>
     "flexboxgrid": "^6.3.1",
 <%_ if(filters.db) { _%>
     "mongoose": "^5.1.6",
@@ -83,7 +85,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "babel-watch": "^2.0.7",
     "connect-history-api-fallback": "^1.5.0",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
@@ -108,6 +109,7 @@
     "mini-css-extract-plugin": "^0.4.0",
     "moxios": "^0.4.0",
     "node-sass": "^4.9.0",
+    "nodemon": "^1.18.3",
     "optimize-css-assets-webpack-plugin": "^4.0.2",
     "raw-loader": "^0.5.1",
     "sass-loader": "^7.0.3",

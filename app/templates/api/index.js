@@ -1,7 +1,7 @@
 import express from 'express';
-import users from './users';
-import projects from './projects';
-import auth from './auth';
+import users from './users/index';
+import projects from './projects/index';
+import auth from './auth/index';
 
 const route = express.Router();
 

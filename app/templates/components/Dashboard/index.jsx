@@ -3,7 +3,6 @@ import './styles.css';
 import ThemesConsumer from '../contexts/themes/consumer';
 import UsersConsumer from '../../api/users/consumer';
 import ProjectsConsumer from '../../api/projects/consumer';
-import Form from '../Form';
 import List from '../List';
 
 function Dashboard() {
@@ -23,7 +22,6 @@ function Dashboard() {
                         </div>
                     )}
                     />
-                    <Form />
                 </div>
             )}
             />

@@ -1,7 +1,7 @@
 import passport from 'passport';
 
 function handleLogin(req, res, next) {
-    passport.authenticate('local', (err, user, info) => {
+    passport.authenticate('local', (err, user) => {
         if (err) {
             next(err);
         }
@@ -9,9 +9,9 @@ function handleLogin(req, res, next) {
             // res.locals.error = [info];
             res.status(500).json({ error: 'message' });
         } else {
-            req.logIn(user, (err) => {
-                if (err) {
-                    next(err);
+            req.logIn(user, (error) => {
+                if (error) {
+                    next(error);
                 }
                 res.redirect('/');
             });
