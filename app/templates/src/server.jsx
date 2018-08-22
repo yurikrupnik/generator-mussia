@@ -7,14 +7,16 @@ import render from './services/render';
 import api from './api';
 import db from './services/db';
 <%_ } _%>
-<%_ if (filters.ws) { _%>
+<%_ if (filters.io) { _%>
 import server from './services/socket/server';
 <%_ } %>
 <%_ if (filters.auth) { _%>
 import passport from './services/passport';
 <%_ } _%>
+<%_ if (filters.render) { _%>
 import App from './components/App';
 import routes from './components/routes';
+<%_ } _%>
 
 const app = express();
 
@@ -36,19 +38,19 @@ app.use(passport(app));
 app.use(api);
 <%_ } _%>
 app.use((req, res, next) => {
-    console.log('req.url', req.url);
-    console.log('req.session', req.session.id);
-    console.log('req.user', req.user);
+    console.log('req.url', req.url); // eslint-disable-line no-console
+    console.log('req.session', req.session.id); // eslint-disable-line no-console
+    console.log('req.user', req.user); // eslint-disable-line no-console
     if (req.isAuthenticated()) {
-        console.log('Authenticated');
+        console.log('Authenticated'); // eslint-disable-line no-console
     } else {
-        console.log('Authenticated not');
+        console.log('Authenticated not'); // eslint-disable-line no-console
     }
     return next();
 });
-app.use(render(App, routes));
+app.use(render(<%= filters.render ? "App, routes": "" %>));
 
-<%= filters.ws ? 'server(app)' : 'app' %>.listen(port, (err) => {
+<%= filters.io ? 'server(app)' : 'app' %>.listen(port, (err) => {
     if (err) {
         console.log('err', err); // eslint-disable-line no-console
     } else {

@@ -2,6 +2,7 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const NodemonPlugin = require('nodemon-webpack-plugin');
 
 const json = require('./package');
 
@@ -65,6 +66,10 @@ module.exports = {
                 start: `node ${filename}`
             },
             devDependencies: {}
-        }))
+        })),
+        process.argv.includes('--watch') ? new NodemonPlugin({
+            script: path.resolve(__dirname, 'dist', filename),
+            verbose: true
+        }) : () => {}
     ]
 };

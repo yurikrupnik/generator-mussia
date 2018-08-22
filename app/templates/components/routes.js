@@ -1,4 +1,3 @@
-<%_ if (filters.loadable) { _%>
 import Loadable from './Loadable';
 
 const Topics = Loadable({
@@ -32,17 +31,6 @@ const Register = Loadable({
 const ChatRoom = Loadable({
     loader: () => import(/* webpackChunkName: "chat" */ './ChatRoom'),
 });
-<%_ } _%>
-<%_ if (!filters.loadable) { _%>
-import Topics from './Topics';
-import Login from '../api/auth/container';
-import Dashboard from './Dashboard';
-import Projects from './Projects';
-import About from './about';
-import Users from './Users';
-import Register from './Register';
-import ChatRoom from './ChatRoom';
-<%_ } _%>
 
 const routes = [
     {

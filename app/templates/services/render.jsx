@@ -1,16 +1,17 @@
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import React from 'react';
+import React, { isValidElement } from 'react';
 
-const render = (app, routes) => (req, res) => {
+const render = (App, routes) => (req, res) => {
     const context = {};
     const { url } = context;
     const title = 'my title';
-    const html = renderToString(
+    // delete if not preparation for ssr not needed - fast reload
+    const html = isValidElement(App) ? renderToString(
         <StaticRouter context={context}>
-            <app.name routes={routes} />
+            <App routes={routes} />
         </StaticRouter>
-    );
+    ) : '';
     const state = { title, html };
     return url ? res.redirect(301, url) : res.render('index', state);
 };

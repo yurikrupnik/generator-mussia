@@ -4,6 +4,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const { devHost } = require('./src/config');
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -42,6 +44,7 @@ module.exports = {
             {
                 test: /\.(css|scss)$/,
                 use: [
+                    'css-hot-loader',
                     MiniCssExtractPlugin.loader,
                     'css-loader?modules=true', 'sass-loader'
                 ],
@@ -83,6 +86,12 @@ module.exports = {
             filename: '[name].css',
             chunkFilename: '[name].css'
         }),
-        isDev ? () => {} : new BundleAnalyzerPlugin({})
+        isDev ? () => {} : new BundleAnalyzerPlugin({}),
+        isDev ? new BrowserSyncPlugin({
+            open: true,
+            proxy: {
+                target: devHost
+            }
+        }, { reload: false }) : () => {}
     ]
 };

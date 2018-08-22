@@ -9,9 +9,7 @@
   ],
   "plugins": [
     "syntax-dynamic-import",
-<%_ if (filters.loadable) { _%>
-      "react-loadable/babel",
-<%_ } _%>
+    "react-loadable/babel",
     "transform-object-rest-spread"
   ]
 }

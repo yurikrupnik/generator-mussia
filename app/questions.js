@@ -17,7 +17,7 @@ const questions = [
     {
         type: 'checkbox',
         name: 'stylesheets',
-        message: 'use style compiler',
+        message: 'use style compiler (not done)',
         choices: [
             {
                 value: 'css',
@@ -33,9 +33,10 @@ const questions = [
     },
     {
         type: 'confirm',
-        name: 'loadable',
-        message: 'would you like react-loadable?',
-        default: true
+        name: 'render',
+        message: 'Would you like server side rendering?',
+        default: true,
+        when: answers => answers.fullstack
     },
     {
         type: 'confirm',
@@ -47,7 +48,7 @@ const questions = [
         type: 'confirm',
         name: 'auth',
         message: 'Would you scaffold out an authentication boilerplate?',
-        when: answers => answers.fullstack && answers.db
+        when: answers => answers.db
     },
     {
         type: 'checkbox',
@@ -73,8 +74,8 @@ const questions = [
     },
     {
         type: 'confirm',
-        name: 'ws',
-        message: 'Would you like to use WebSockets?',
+        name: 'io',
+        message: 'Would you like to use SocketIO?',
         default: true,
         when: answers => answers.fullstack,
     }

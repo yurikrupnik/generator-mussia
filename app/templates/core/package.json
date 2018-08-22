@@ -4,13 +4,22 @@
   "description": "react-boilerplate",
   "main": "src/server.jsx",
   "scripts": {
-    "start": "npm run start:client & npm run start:server",
+<%_ if(!filters.fullstack) { _%>
+    "start": "cross-env NODE_ENV=development webpack-serve --config webpack.config.serve.js"
+<%_ } _%>
+    "start": "npm run start:client <%- filters.fullstack ? '& npm run start:server' : '' %>",
     "start:client": "cross-env NODE_ENV=development webpack-serve --config webpack.config.serve.js",
-    "start:server": "cross-env NODE_ENV=development nodemon --plugins dynamic-import-node src/server.jsx",
+<%_ if(filters.fullstack) { _%>
+    "start:server": "cross-env NODE_ENV=development webpack --watch --config webpack.config.server.js",
+<%_ } _%>
+<%_ if(filters.db) { _%>
     "start:mongo": "docker run --rm -d -p 27017:27017 --name mongo mongo",
+<%_ } _%>
     "clean": "rimraf dist/",
-    "build": "npm run clean && npm run build:server & npm run build:client",
+    "build": "npm run clean && <%- filters.fullstack ? 'npm run build:server &' : '' %> npm run build:client",
+<%_ if(filters.fullstack) { _%>
     "build:server": "cross-env NODE_ENV=production webpack --config webpack.config.server.js",
+<%_ } _%>
     "build:client": "cross-env NODE_ENV=production webpack --config webpack.config.client.js",
     "lint": "eslint eslint --ext js,jsx src",
     "test": "jest",
@@ -42,14 +51,10 @@
     "axios": "^0.18.0",
 <%_ if(filters.auth) { _%>
     "bcrypt": "^1.0.3",
-<%_ } _%>
-<%_ if(filters.db) { _%>
     "connect-mongo": "^2.0.1",
-<%_ } _%>
-    "express": "^4.16.3",
-<%_ if(filters.db) { _%>
     "express-session": "^1.15.6",
 <%_ } _%>
+    "express": "^4.16.3",
 <%_ if(filters.auth) { _%>
     "faker": "^4.1.0",
 <%_ } _%>
@@ -66,12 +71,10 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-<%_ if(filters.loadable) { _%>
     "react-loadable": "^5.5.0",
-<%_ } _%>
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "shortid": "^2.2.13" <%_ if(filters.ws) { _%>,
+    "shortid": "^2.2.13" <%_ if(filters.io) { _%>,
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1"
 <%_ } _%>
@@ -80,13 +83,16 @@
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
-    "babel-plugin-dynamic-import-node": "^1.2.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "browser-sync": "^2.24.6",
+    "browser-sync-webpack-plugin": "^2.2.2",
     "connect-history-api-fallback": "^1.5.0",
+    "cors": "^2.8.4",
     "cross-env": "^5.2.0",
+    "css-hot-loader": "^1.4.2",
     "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -109,7 +115,9 @@
     "mini-css-extract-plugin": "^0.4.0",
     "moxios": "^0.4.0",
     "node-sass": "^4.9.0",
-    "nodemon": "^1.18.3",
+<%_ if(filters.fullstack) { _%>
+    "nodemon-webpack-plugin": "^4.0.3",
+<%_ } _%>
     "optimize-css-assets-webpack-plugin": "^4.0.2",
     "raw-loader": "^0.5.1",
     "sass-loader": "^7.0.3",
