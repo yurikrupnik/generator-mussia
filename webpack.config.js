@@ -8,7 +8,7 @@ module.exports = {
         __dirname: false,
         __filename: true,
     },
-    // externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
+    externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
     devtool: 'source-map',
     entry: './index.js',
     output: {

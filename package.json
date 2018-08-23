@@ -8,7 +8,6 @@
     "lint:generator": "eslint app/index.js",
     "lint": "npm run lint:templates && npm run lint:generator",
     "test": "npm run lint && jest app/app.test.js",
-    "prepublish": "webpack",
     "build": "webpack"
   },
   "repository": {
