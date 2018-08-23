@@ -4,9 +4,6 @@
   "description": "react-boilerplate",
   "main": "src/server.jsx",
   "scripts": {
-<%_ if(!filters.fullstack) { _%>
-    "start": "cross-env NODE_ENV=development webpack-serve --config webpack.config.serve.js"
-<%_ } _%>
     "start": "npm run start:client <%- filters.fullstack ? '& npm run start:server' : '' %>",
     "start:client": "cross-env NODE_ENV=development webpack-serve --config webpack.config.serve.js",
 <%_ if(filters.fullstack) { _%>
@@ -30,8 +27,7 @@
     "deploy:run": "docker run yuri/react-bo --hostname=yuri -p 49170:5000 -d ",
     "debug:server": "cross-env NODE_ENV=development webpack --config webpack.config.server.js -w",
     "debug:client": "cross-env NODE_ENV=development webpack --config webpack.config.client.js -w",
-    "debug": "npm run debug:server",
-    "dist": "npm run build && cd dist && npm start"
+    "debug": "npm run debug:server"
   },
   "repository": {
     "type": "git",
@@ -54,7 +50,9 @@
     "connect-mongo": "^2.0.1",
     "express-session": "^1.15.6",
 <%_ } _%>
+<%_ if(filters.fullstack) { _%>
     "express": "^4.16.3",
+<%_ } _%>
 <%_ if(filters.auth) { _%>
     "faker": "^4.1.0",
 <%_ } _%>
@@ -62,7 +60,9 @@
 <%_ if(filters.db) { _%>
     "mongoose": "^5.1.6",
 <%_ } _%>
+<%_ if(filters.fullstack) { _%>
     "morgan": "^1.9.0",
+<%_ } _%>
 <%_ if(filters.auth) { _%>
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
@@ -73,8 +73,8 @@
     "react-dom": "^16.4.2",
     "react-loadable": "^5.5.0",
     "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "shortid": "^2.2.13" <%_ if(filters.io) { _%>,
+    "react-router-dom": "^4.3.1" <%_ if(filters.auth) { _%>,
+    "shortid": "^2.2.13" <%_ } _%><%_ if(filters.io) { _%>,
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1"
 <%_ } _%>
@@ -90,7 +90,9 @@
     "browser-sync": "^2.24.6",
     "browser-sync-webpack-plugin": "^2.2.2",
     "connect-history-api-fallback": "^1.5.0",
+<%_ if(filters.fullstack) { _%>
     "cors": "^2.8.4",
+<%_ } _%>
     "cross-env": "^5.2.0",
     "css-hot-loader": "^1.4.2",
     "css-loader": "^0.28.11",
@@ -108,9 +110,11 @@
     "generate-json-webpack-plugin": "^0.3.1",
 <%_ } _%>
     "html-webpack-plugin": "^3.2.0",
+<%_ if(filters.fullstack) { _%>
     "http-proxy-middleware": "^0.18.0",
+<%_ } _%>
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^23.1.0",
+    "jest": "^23.5.0",
     "koa-connect": "^2.0.1",
     "mini-css-extract-plugin": "^0.4.0",
     "moxios": "^0.4.0",

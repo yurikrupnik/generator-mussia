@@ -1,15 +1,15 @@
 import path from 'path';
 import express from 'express';
 import morgan from 'morgan';
-import { port, databaseUrl } from './config';
+import { port<%= filters.db ? ', databaseUrl ' : ''%>} from './config';
 import render from './services/render';
-<% if (filters.db) { _%>
 import api from './api';
+<% if (filters.db) { _%>
 import db from './services/db';
 <%_ } _%>
 <%_ if (filters.io) { _%>
 import server from './services/socket/server';
-<%_ } %>
+<%_ } _%>
 <%_ if (filters.auth) { _%>
 import passport from './services/passport';
 <%_ } _%>
@@ -34,9 +34,7 @@ app.use(db(databaseUrl));
 <%_ if (filters.auth) { _%>
 app.use(passport(app));
 <%_ } _%>
-<% if (filters.db) { _%>
 app.use(api);
-<%_ } _%>
 app.use((req, res, next) => {
     console.log('req.url', req.url); // eslint-disable-line no-console
     console.log('req.session', req.session.id); // eslint-disable-line no-console

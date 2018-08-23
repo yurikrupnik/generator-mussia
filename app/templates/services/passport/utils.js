@@ -31,7 +31,7 @@ const checkUserByEmailAndPass = (email, password, done) => (user) => {
             })))
             .then(saveUser(done))
             .catch((err) => {
-                console.log('error saving user', err);
+                console.log('error saving user', err); // eslint-disable-line no-console
             });
     }
     return validatePassword(password, user.hashPassword)

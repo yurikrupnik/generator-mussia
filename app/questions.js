@@ -15,23 +15,6 @@ const questions = [
         ]
     },
     {
-        type: 'checkbox',
-        name: 'stylesheets',
-        message: 'use style compiler (not done)',
-        choices: [
-            {
-                value: 'css',
-                name: 'CSS',
-                checked: true
-            },
-            {
-                value: 'sass',
-                name: 'SASS',
-                checked: true
-            }
-        ]
-    },
-    {
         type: 'confirm',
         name: 'render',
         message: 'Would you like server side rendering?',
