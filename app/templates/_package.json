@@ -1,8 +1,8 @@
 {
   "name": "<%= name %>",
   "version": "1.0.0",
-  "description": "react-boilerplate",
-  "main": "src/server.jsx",
+  "description": "",
+  "main": "<%- filters.fullstack ? 'src/server.jsx' : 'src/client.jsx' %>",
   "scripts": {
     "start": "npm run start:client <%- filters.fullstack ? '& npm run start:server' : '' %>",
     "start:client": "cross-env NODE_ENV=development webpack-serve --config webpack.config.serve.js",
@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yurikrupnik/react-boilerplate.git"
+    "url": ""
   },
   "author": {
     "name": "Yuri Krupnik",
@@ -39,7 +39,7 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/yurikrupnik/react-boilerplate/issues"
+    "url": ""
   },
   "homepage": "https://github.com/yurikrupnik/react-boilerplate#readme",
   "dependencies": {
