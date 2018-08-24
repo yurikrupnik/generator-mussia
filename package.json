@@ -7,8 +7,10 @@
     "lint:templates": "ejslint app/templates/**",
     "lint:generator": "eslint app/index.js",
     "lint": "npm run lint:templates && npm run lint:generator",
-    "test": "npm run lint && jest app/app.test.js",
-    "build": "webpack"
+    "test": "jest app/app.test.js",
+    "test:coverage": "jest --coverage app/app.test.js",
+    "build": "webpack",
+    "clean": "rimraf dist/"
   },
   "repository": {
     "type": "git",
