@@ -25,7 +25,7 @@ Generate your selected project.
 Install node_modules
 
 **Please Note:** Incase of bcrypt installation, see [bcrypt](https://www.npmjs.com/package/bcrypt) Version Compatibility table.  
-Package version depends from node version, adjust package.json accordanceץ
+Package version depends from node version, adjust package.json accordance.
 ```
 cd your-app-name
 ```

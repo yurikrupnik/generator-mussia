@@ -4,7 +4,7 @@ const proxy = require('http-proxy-middleware');
 const cors = require('cors');
 <%_ } _%>
 const history = require('connect-history-api-fallback');
-const { devPort <%= filters.fullstack ? ", host " : ""%> } = require('./src/config');
+const { devPort<%= filters.fullstack ? ", host " : " "%>} = require('./src/config');
 
 module.exports = require('./webpack.config.client');
 
