@@ -69,7 +69,8 @@ module.exports = {
         })),
         process.argv.includes('--watch') ? new NodemonPlugin({
             script: path.resolve(__dirname, 'dist', filename),
-            verbose: true
+            verbose: true,
+            watch: path.resolve(__dirname, 'dist', filename)
         }) : () => {}
     ]
 };
