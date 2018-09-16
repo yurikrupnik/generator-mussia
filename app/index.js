@@ -265,7 +265,7 @@ class App extends Generator {
     }
 
     install() {
-        // this.npmInstall();
+        this.npmInstall();
     }
 
     end() {
