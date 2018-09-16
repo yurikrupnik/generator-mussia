@@ -23,8 +23,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "deploy:test": "npm run lint && npm run test",
-    "deploy:build": "npm run deploy:test && npm run build && docker build -t yuri/react-bo . ",
-    "deploy:run": "docker run yuri/react-bo --hostname=yuri -p 49170:5000 -d ",
+    "deploy:build": "npm run deploy:test && npm run build && docker build -t <%= name %> . ",
+    "deploy:run": "docker run <%= name %> -p 49170:5000 -d ",
     "debug:server": "cross-env NODE_ENV=development webpack --config webpack.config.server.js -w",
     "debug:client": "cross-env NODE_ENV=development webpack --config webpack.config.client.js -w",
     "debug": "npm run debug:server"
@@ -41,7 +41,7 @@
   "bugs": {
     "url": ""
   },
-  "homepage": "https://github.com/yurikrupnik/react-boilerplate#readme",
+  "homepage": "",
   "dependencies": {
     "@material-ui/core": "^1.2.3",
     "axios": "^0.18.0",

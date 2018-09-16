@@ -247,7 +247,10 @@ class App extends Generator {
         this.fs.copyTpl(
             this.templatePath('src/'),
             this.destinationPath(`src`),
-            { filters }
+            {
+                name: this.options.appname,
+                filters
+            }
         );
     }
 
@@ -262,7 +265,7 @@ class App extends Generator {
     }
 
     install() {
-        this.npmInstall();
+        // this.npmInstall();
     }
 
     end() {
