@@ -1,7 +1,7 @@
 import path from 'path';
 import express from 'express';
 import morgan from 'morgan';
-import { port<%= filters.db ? ', databaseUrl ' : ''%>} from './config';
+import { port<%= filters.db ? ', databaseUrl ' : ' '%>} from './config';
 import render from './services/render';
 import api from './api';
 <% if (filters.db) { _%>

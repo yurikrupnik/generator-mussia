@@ -7,7 +7,7 @@ const List = (props) => {
     return (
         <div>
             {/* eslint-disable-next-line no-underscore-dangle */}
-            {loading ? <Spinner /> : data.map(v => (
+            {loading ? <Spinner /> : Array.isArray(data) && data.map(v => (
                 /* eslint-disable-next-line no-underscore-dangle */
                 <div key={v._id}>
                     <div>
