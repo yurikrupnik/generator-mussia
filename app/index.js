@@ -24,8 +24,8 @@ class App extends Generator {
 
     configuring() {
         this.destinationRoot(this.options.appname);
-        this.config.save();
         this._createFilters(this.answers);
+        this.config.set(this.filters);
     }
 
     _handleCore(filters, options) {
@@ -60,18 +60,12 @@ class App extends Generator {
         if (filters.fullstack) {
             this.fs.copyTpl(
                 this.templatePath('webpack/**'),
-                this.destinationRoot(),
-                { filters }
+                this.destinationRoot()
             );
         } else  {
             this.fs.copy(
                 this.templatePath('webpack/webpack.config.client.js'),
                 this.destinationPath('webpack.config.client.js')
-            );
-            this.fs.copyTpl(
-                this.templatePath('webpack/webpack.config.serve.js'),
-                this.destinationPath('webpack.config.serve.js'),
-                { filters }
             );
         }
     }

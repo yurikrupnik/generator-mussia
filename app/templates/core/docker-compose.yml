@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  db:
+    image: mongo
+    ports:
+    - 27017:27017
+  web:
+    build: .
+    ports:
+    - 7000:7000
+    command: npm start
+    depends_on:
+    - db

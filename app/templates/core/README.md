@@ -16,18 +16,19 @@ npm start
 ```
 
 ## Features
-- Webpack 4
-- Babel
+- Webpack4
+- Babel7
+- Eslint
 - React - context api as state manager
-- React-router
+- React-router 4
 - Server side rendering
-- Express
+- Sass
+- Express - Express
+- MongoDB - Users and projects demo api's
+- Server side rendering
 - Dynamic imports
 - MongoDB - Api
-- Auth
-- Jest testing
-- Eslint checking
-- MongoDB docker 
-- Sass
-
-
+- Socket.io - chat example
+- Auth - oAuth - Auth - session storage via mongodb
+- Jest testing - Jest
+- Eslint checking - Docker integration

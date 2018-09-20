@@ -5,9 +5,9 @@
   "main": "<%- filters.fullstack ? 'src/server.jsx' : 'src/client.jsx' %>",
   "scripts": {
     "start": "npm run start:client <%- filters.fullstack ? '& npm run start:server' : '' %>",
-    "start:client": "cross-env NODE_ENV=development webpack-serve --config webpack.config.serve.js",
+    "start:client": "webpack-dev-server --config webpack.config.client.js",
 <%_ if(filters.fullstack) { _%>
-    "start:server": "cross-env NODE_ENV=development webpack --watch --config webpack.config.server.js",
+    "start:server": "webpack -w --config webpack.config.server.js",
 <%_ } _%>
 <%_ if(filters.db) { _%>
     "start:mongo": "docker run --rm -d -p 27017:27017 --name mongo mongo",
@@ -15,19 +15,22 @@
     "clean": "rimraf dist/",
     "build": "npm run clean && <%- filters.fullstack ? 'npm run build:server &' : '' %> npm run build:client",
 <%_ if(filters.fullstack) { _%>
-    "build:server": "cross-env NODE_ENV=production webpack --config webpack.config.server.js",
+    "build:server": "webpack --env.prod --config webpack.config.server.js",
 <%_ } _%>
-    "build:client": "cross-env NODE_ENV=production webpack --config webpack.config.client.js",
+    "build:client": "webpack --env.prod --config webpack.config.client.js",
     "lint": "eslint eslint --ext js,jsx src",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "deploy:test": "npm run lint && npm run test",
     "deploy:build": "npm run deploy:test && npm run build && docker build -t <%= name %> . ",
-    "deploy:run": "docker run <%= name %> -p 49170:5000 -d ",
-    "debug:server": "cross-env NODE_ENV=development webpack --config webpack.config.server.js -w",
-    "debug:client": "cross-env NODE_ENV=development webpack --config webpack.config.client.js -w",
-    "debug": "npm run debug:server"
+    "deploy:run": "docker run -p 7000:7000 <%= name %>",
+    "deploy:compose": "npm run deploy:test && npm run build && docker-compose up",
+    "deploy:up": "docker run -p 7000:7000 <%= name %>",
+    "debug:server": "webpack --config webpack.config.server.js -w",
+    "debug:client": "webpack --config webpack.config.client.js -w",
+    "debug": "npm run debug:server",
+    "dist": "npm run build && cd dist && npm start"
   },
   "repository": {
     "type": "git",
@@ -43,25 +46,30 @@
   },
   "homepage": "",
   "dependencies": {
-    "@material-ui/core": "^1.2.3",
+    "@material-ui/core": "^3.1.0",
     "axios": "^0.18.0",
 <%_ if(filters.auth) { _%>
-    "bcrypt": "^1.0.3",
-    "connect-mongo": "^2.0.1",
-    "express-session": "^1.15.6",
+    "bcrypt": "^3.0.0",
 <%_ } _%>
+<%_ if(filters.db) { _%>
+    "connect-mongo": "^2.0.1",
+<%_ } _%>
+    "ejs": "^2.6.1",
 <%_ if(filters.fullstack) { _%>
     "express": "^4.16.3",
+<%_ } _%>
+<%_ if(filters.db) { _%>
+    "express-session": "^1.15.6",
 <%_ } _%>
 <%_ if(filters.auth) { _%>
     "faker": "^4.1.0",
 <%_ } _%>
     "flexboxgrid": "^6.3.1",
 <%_ if(filters.db) { _%>
-    "mongoose": "^5.1.6",
+    "mongoose": "^5.2.15",
 <%_ } _%>
 <%_ if(filters.fullstack) { _%>
-    "morgan": "^1.9.0",
+    "morgan": "^1.9.1",
 <%_ } _%>
 <%_ if(filters.auth) { _%>
     "passport": "^0.4.0",
@@ -69,8 +77,8 @@
     "passport-local": "^1.0.0",
 <%_ } _%>
     "prop-types": "^15.6.2",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "react-loadable": "^5.5.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1" <%_ if(filters.auth) { _%>,
@@ -80,60 +88,51 @@
 <%_ } _%>
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.3",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "browser-sync": "^2.24.6",
-    "browser-sync-webpack-plugin": "^2.2.2",
-    "connect-history-api-fallback": "^1.5.0",
-<%_ if(filters.fullstack) { _%>
-    "cors": "^2.8.4",
-<%_ } _%>
-    "cross-env": "^5.2.0",
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^9.0.0",
+    "babel-loader": "^8.0.2",
     "css-hot-loader": "^1.4.2",
     "css-loader": "^0.28.11",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "dotenv-webpack": "^1.5.7",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
     "enzyme-to-json": "^3.3.4",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^17.0.0",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.9.1",
-    "file-loader": "^1.1.11",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "file-loader": "^2.0.0",
 <%_ if(filters.fullstack) { _%>
     "generate-json-webpack-plugin": "^0.3.1",
 <%_ } _%>
     "html-webpack-plugin": "^3.2.0",
-<%_ if(filters.fullstack) { _%>
-    "http-proxy-middleware": "^0.18.0",
-<%_ } _%>
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^23.5.0",
-    "koa-connect": "^2.0.1",
+    "jest": "^23.6.0",
     "mini-css-extract-plugin": "^0.4.0",
     "moxios": "^0.4.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.9.3",
 <%_ if(filters.fullstack) { _%>
     "nodemon-webpack-plugin": "^4.0.3",
 <%_ } _%>
-    "optimize-css-assets-webpack-plugin": "^4.0.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "raw-loader": "^0.5.1",
-    "sass-loader": "^7.0.3",
-    "style-loader": "^0.21.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.0",
     "uglifyjs-webpack-plugin": "^1.2.6",
-    "webpack": "^4.16.5",
-    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack": "^4.19.1",
+    "webpack-bundle-analyzer": "^3.0.2",
     "webpack-cli": "^3.1.0",
 <%_ if(filters.fullstack) { _%>
     "webpack-node-externals": "^1.7.2",
 <%_ } _%>
-    "webpack-serve": "^1.0.4"
+    "webpack-dev-server": "^3.1.8"
   },
   "jest": {
     "setupFiles": [

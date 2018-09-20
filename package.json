@@ -1,6 +1,6 @@
 {
   "name": "generator-mussia",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Yeoman generator for React with an Express server",
   "main": "app/index.js",
   "scripts": {
@@ -35,6 +35,7 @@
     "frontEnd",
     "back-end",
     "webpack",
+    "webpack-dev-server",
     "eslint",
     "node",
     "express",
@@ -42,9 +43,11 @@
     "server",
     "app",
     "fullstack",
-    "mongoDB"
+    "mongodb",
+    "session",
+    "auth"
   ],
-  "homepage": "https://github.com/yurikrupnik/generator-mussia#readme",
+  "homepage": "https://www.npmjs.com/package/generator-mussia",
   "dependencies": {
     "lodash.reduce": "^4.6.0",
     "yeoman-generator": "^3.1.1"
