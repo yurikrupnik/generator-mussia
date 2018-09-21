@@ -18,7 +18,7 @@
     "build:server": "webpack --env.prod --config webpack.config.server.js",
 <%_ } _%>
     "build:client": "webpack --env.prod --config webpack.config.client.js",
-    "lint": "eslint eslint --ext js,jsx src",
+    "lint": "eslint --ext js,jsx src",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
