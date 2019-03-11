@@ -266,6 +266,7 @@ class App extends Generator {
             'react-router',
             'react-router-dom'
         ]);
+        this.npmInstall();
     }
 
     end() {
