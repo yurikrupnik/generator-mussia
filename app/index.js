@@ -5,7 +5,7 @@ const questions = require('./questions');
 class App extends Generator {
     constructor(args, opts) {
         super(args, opts);
-        this.argument('appname', { type: String, required: true });
+        this.argument('appname', {type: String, required: true});
     }
 
     _createFilters(answers) {
@@ -33,13 +33,13 @@ class App extends Generator {
             this.fs.copyTpl(
                 this.templatePath('server.jsx'),
                 this.destinationPath('src/server.jsx'),
-                { filters }
+                {filters}
             );
         }
         this.fs.copyTpl(
             this.templatePath('client.jsx'),
             this.destinationPath('src/client.jsx'),
-            { filters }
+            {filters}
         );
         this.fs.copyTpl(
             this.templatePath('_package.json'),
@@ -52,7 +52,7 @@ class App extends Generator {
         this.fs.copy(
             this.templatePath('core/'),
             this.destinationRoot(),
-            { globOptions: { dot: true }}
+            {globOptions: {dot: true}}
         );
     }
 
@@ -62,7 +62,7 @@ class App extends Generator {
                 this.templatePath('webpack/**'),
                 this.destinationRoot()
             );
-        } else  {
+        } else {
             this.fs.copy(
                 this.templatePath('webpack/webpack.config.client.js'),
                 this.destinationPath('webpack.config.client.js')
@@ -109,7 +109,7 @@ class App extends Generator {
             this.fs.copyTpl(
                 this.templatePath('api/index.js'),
                 this.destinationPath('src/api/index.js'),
-                { filters }
+                {filters}
             );
             this.fs.copy(
                 this.templatePath('api/stam'),
@@ -136,7 +136,7 @@ class App extends Generator {
         this.fs.copyTpl(
             this.templatePath('api/providers.jsx'),
             this.destinationPath('src/api/providers.jsx'),
-            { filters }
+            {filters}
         );
         this.fs.copy(
             this.templatePath('api/request.js'),
@@ -164,7 +164,7 @@ class App extends Generator {
         this.fs.copyTpl(
             this.templatePath('components/routes.js'),
             this.destinationPath('src/components/routes.js'),
-            { filters }
+            {filters}
         );
 
         if (filters.io) {
@@ -195,13 +195,13 @@ class App extends Generator {
         this.fs.copyTpl(
             this.templatePath('components/routes.js'),
             this.destinationPath('src/components/routes.js'),
-            { filters }
+            {filters}
         );
 
         this.fs.copyTpl(
             this.templatePath('components/App'),
             this.destinationPath('src/components/App'),
-            { filters }
+            {filters}
         );
         this.fs.copy(
             this.templatePath('components/contexts'),
@@ -249,7 +249,7 @@ class App extends Generator {
     }
 
     writing() {
-        const { options, filters } = this;
+        const {options, filters} = this;
         this._handleServices(filters);
         this._handleWebpack(filters);
         this._handleCore(filters, options);
@@ -259,7 +259,13 @@ class App extends Generator {
     }
 
     install() {
-        this.npmInstall(['react']);
+        this.npmInstall([
+            'react',
+            'prop-types',
+            'react-dom',
+            'react-router',
+            'react-router-dom'
+        ]);
     }
 
     end() {
