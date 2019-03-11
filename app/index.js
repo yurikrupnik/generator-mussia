@@ -278,6 +278,11 @@ class App extends Generator {
                 'ejs',
                 'morgan'
             ]);
+            this.npmInstall([
+                'generate-json-webpack-plugin',
+                'nodemon-webpack-plugin',
+                'webpack-node-externals'
+            ], { 'save-dev': true });
         }
 
         if (filters.db) {
@@ -306,7 +311,44 @@ class App extends Generator {
             ]);
         }
 
-        this.npmInstall();
+        this.npmInstall([
+            '@babel/core',
+            '@babel/plugin-syntax-dynamic-import',
+            '@babel/plugin-syntax-object-rest-spread',
+            '@babel/preset-env',
+            '@babel/preset-react',
+            'babel-core',
+            'babel-eslint',
+            'babel-loader',
+            'css-hot-loader',
+            'css-loader',
+            'dotenv',
+            'enzyme',
+            'enzyme-adapter-react-16',
+            'enzyme-to-json',
+            'eslint',
+            'eslint-config-airbnb',
+            'eslint-loader',
+            'eslint-plugin-import',
+            'eslint-plugin-jsx-a11y',
+            'eslint-plugin-react',
+            'file-loader',
+            'html-webpack-plugin',
+            'jest',
+            'identity-obj-proxy',
+            'mini-css-extract-plugin',
+            'moxios',
+            'node-sass',
+            'style-loader',
+            'sass-loader',
+            'raw-loader',
+            'optimize-css-assets-webpack-plugin',
+            'webpack',
+            'webpack-cli',
+            'webpack-bundle-analyzer',
+            'webpack-dev-server'
+
+        ], { 'save-dev': true });
     }
 
     end() {

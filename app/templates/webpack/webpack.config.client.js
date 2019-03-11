@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -16,11 +16,7 @@ module.exports = env => {
         context: path.resolve(__dirname, 'src'),
         optimization: {
             minimizer: [
-                new UglifyJsPlugin({
-                    cache: true,
-                    parallel: true,
-                    sourceMap: true // set to true if you want JS source maps
-                }),
+                new TerserPlugin(),
                 new OptimizeCSSAssetsPlugin({})
             ]
         },

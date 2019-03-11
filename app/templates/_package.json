@@ -46,53 +46,7 @@
   },
   "homepage": "",
   "dependencies": {},
-  "devDependencies": {
-    "@babel/core": "^7.1.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/plugin-syntax-object-rest-spread": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/preset-react": "^7.0.0",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^9.0.0",
-    "babel-loader": "^8.0.2",
-    "css-hot-loader": "^1.4.2",
-    "css-loader": "^0.28.11",
-    "dotenv-webpack": "^1.5.7",
-    "enzyme": "^3.6.0",
-    "enzyme-adapter-react-16": "^1.5.0",
-    "enzyme-to-json": "^3.3.4",
-    "eslint": "^5.6.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-loader": "^2.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.11.1",
-    "file-loader": "^2.0.0",
-<%_ if(filters.fullstack) { _%>
-    "generate-json-webpack-plugin": "^0.3.1",
-<%_ } _%>
-    "html-webpack-plugin": "^3.2.0",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^23.6.0",
-    "mini-css-extract-plugin": "^0.4.0",
-    "moxios": "^0.4.0",
-    "node-sass": "^4.9.3",
-<%_ if(filters.fullstack) { _%>
-    "nodemon-webpack-plugin": "^4.0.3",
-<%_ } _%>
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "raw-loader": "^0.5.1",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.0",
-    "uglifyjs-webpack-plugin": "^1.2.6",
-    "webpack": "^4.19.1",
-    "webpack-bundle-analyzer": "^3.0.2",
-    "webpack-cli": "^3.1.0",
-<%_ if(filters.fullstack) { _%>
-    "webpack-node-externals": "^1.7.2",
-<%_ } _%>
-    "webpack-dev-server": "^3.1.8"
-  },
+  "devDependencies": {},
   "jest": {
     "setupFiles": [
       "./jestsetup.js"
