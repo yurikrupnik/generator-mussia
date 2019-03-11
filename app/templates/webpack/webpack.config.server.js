@@ -5,8 +5,6 @@ const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const NodemonPlugin = require('nodemon-webpack-plugin');
 const dotenv = require('dotenv');
 const json = require('./package');
-// const sassVars = require('./src/theme.js');
-// const sassFuncs = require('./sassHelper');
 
 const filename = 'server.js';
 
@@ -41,10 +39,7 @@ module.exports = (env, argv) => {
                     use: [
                         'css-loader',
                         {
-                            loader: 'sass-loader',
-                            // options: {
-                            //     functions: sassFuncs(sassVars)
-                            // }
+                            loader: 'sass-loader'
                         }
                     ]
                 },

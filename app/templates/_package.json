@@ -45,43 +45,7 @@
     "url": ""
   },
   "homepage": "",
-  "dependencies": {
-    "@material-ui/core": "^3.1.0",
-    "axios": "^0.18.0",
-<%_ if(filters.auth) { _%>
-    "bcrypt": "^3.0.0",
-<%_ } _%>
-<%_ if(filters.db) { _%>
-    "connect-mongo": "^2.0.1",
-<%_ } _%>
-    "ejs": "^2.6.1",
-<%_ if(filters.fullstack) { _%>
-    "express": "^4.16.3",
-<%_ } _%>
-<%_ if(filters.db) { _%>
-    "express-session": "^1.15.6",
-<%_ } _%>
-<%_ if(filters.auth) { _%>
-    "faker": "^4.1.0",
-<%_ } _%>
-    "flexboxgrid": "^6.3.1",
-<%_ if(filters.db) { _%>
-    "mongoose": "^5.2.15",
-<%_ } _%>
-<%_ if(filters.fullstack) { _%>
-    "morgan": "^1.9.1",
-<%_ } _%>
-<%_ if(filters.auth) { _%>
-    "passport": "^0.4.0",
-    "passport-facebook": "^2.1.1",
-    "passport-local": "^1.0.0",
-<%_ } _%>
-    "react-loadable": "^5.5.0" <%_ if(filters.auth) { _%>,
-    "shortid": "^2.2.13" <%_ } _%><%_ if(filters.io) { _%>,
-    "socket.io": "^2.1.1",
-    "socket.io-client": "^2.1.1"
-<%_ } _%>
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.1.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",

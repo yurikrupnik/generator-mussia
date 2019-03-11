@@ -6,8 +6,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const dotenv = require('dotenv');
-const sassVars = require('./src/theme.js');
-const sassFuncs = require('./sassHelper');
 
 module.exports = env => {
     const isProd = env ? !!env.prod : false;
@@ -59,10 +57,7 @@ module.exports = env => {
                             }
                         },
                         {
-                            loader: 'sass-loader',
-                            options: {
-                                functions: sassFuncs(sassVars)
-                            }
+                            loader: 'sass-loader'
                         }
                     ],
                 },

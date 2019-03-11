@@ -7,7 +7,7 @@ import config from './config';
 import './styles/_index.scss';
 
 <%_ if (filters.render) { _%>
-const renderMethod = config.isProd ? hydrate : render
+const renderMethod = config.isProd ? hydrate : render;
 
 <%_ } _%>
 <%=  filters.render ? 'renderMethod' : 'render'%>(

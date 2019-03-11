@@ -259,13 +259,53 @@ class App extends Generator {
     }
 
     install() {
+        const { filters } = this;
         this.npmInstall([
             'react',
             'prop-types',
             'react-dom',
             'react-router',
-            'react-router-dom'
+            'react-router-dom',
+            '@material-ui/core',
+            'axios',
+            'flexboxgrid',
+            'react-loadable'
         ]);
+
+        if (filters.fullstack) {
+            this.npmInstall([
+                'express',
+                'ejs',
+                'morgan'
+            ]);
+        }
+
+        if (filters.db) {
+            this.npmInstall([
+                'connect-mongo',
+                'express-session',
+                'mongoose'
+            ]);
+        }
+
+        if (filters.auth) {
+            this.npmInstall([
+                'bcrypt',
+                'faker',
+                'passport',
+                'passport-local',
+                'passport-facebook',
+                'shortid'
+            ]);
+        }
+
+        if (filters.io) {
+            this.npmInstall([
+                'socket.io',
+                'socket.io-client'
+            ]);
+        }
+
         this.npmInstall();
     }
 
