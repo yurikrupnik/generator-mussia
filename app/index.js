@@ -317,7 +317,6 @@ class App extends Generator {
             '@babel/plugin-syntax-object-rest-spread',
             '@babel/preset-env',
             '@babel/preset-react',
-            'babel-core',
             'babel-eslint',
             'babel-loader',
             'css-hot-loader',
