@@ -18,6 +18,8 @@ import App from './components/App';
 import routes from './components/routes';
 <%_ } _%>
 
+const webServer = express();
+const appServer = express();
 const app = express();
 
 const assets = path.resolve(__dirname, 'assets');

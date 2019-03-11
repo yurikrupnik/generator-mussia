@@ -1,28 +1,16 @@
+/* this file is used in webpack client for dev port and proxy host */
 const port = Number(process.env.PORT) || 5000;
+const appServerPort = port - 100;
 const isProd = process.env.NODE_ENV === 'production';
-const ip = process.env.IP || 'localhost';
-const host = process.env.WEBSITE_HOSTNAME || `http://${ip}:${port}`;
-const devPort = port + 1;
-const devHost = `http://${ip}:${devPort}`;
-const baseURL = isProd ? host : devHost;
-const localDBUrl = 'mongodb://localhost/<%-name%>';
-
-let databaseUrl;
-if (isProd) {
-    if (JSON.parse(process.env.DB_LOCAL)) {
-        databaseUrl = localDBUrl;
-    } else {
-        databaseUrl = process.env.DB_URL;
-    }
-} else {
-    databaseUrl = localDBUrl;
-}
+const baseURL = `http://localhost:${port}`;
+// const baseURL = `http://localhost:${isProd || process.env.DEBUG ? port : port + 1}`;
+const databaseUrl = process.env.DATABASE_URL || 'mongodb://localhost/<%-name%>';
 
 module.exports = {
     port,
-    host,
-    devPort,
-    devHost,
+    appServerPort,
     databaseUrl,
-    baseURL
+    baseURL,
+    isProd
 };
+

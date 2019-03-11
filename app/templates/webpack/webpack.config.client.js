@@ -1,14 +1,19 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const Dotenv = require('dotenv-webpack');
+const dotenv = require('dotenv');
+const sassVars = require('./src/theme.js');
+const sassFuncs = require('./sassHelper');
 
-module.exports = (env) => {
+module.exports = env => {
     const isProd = env ? !!env.prod : false;
-    const config = isProd ? null : require('./src/config');
+    const isDebug = env ? !!env.debug : false;
+    const config = isProd ? dotenv.config() : require('./src/config'); // eslint-disable-line global-require
+
     return {
         context: path.resolve(__dirname, 'src'),
         optimization: {
@@ -45,8 +50,20 @@ module.exports = (env) => {
                     test: /\.(css|scss)$/,
                     use: [
                         'css-hot-loader',
-                        MiniCssExtractPlugin.loader,
-                        'css-loader?modules=true', 'sass-loader'
+                        !isProd ? 'style-loader' : MiniCssExtractPlugin.loader,
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true,
+                                localIdentName: isProd ? '[hash:base64]' : '[local]--[hash:base64:5]'
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                functions: sassFuncs(sassVars)
+                            }
+                        }
                     ],
                 },
                 {
@@ -65,7 +82,10 @@ module.exports = (env) => {
             ]
         },
         plugins: [
-            isProd ? new Dotenv() : () => {},
+            new webpack.DefinePlugin({
+                'process.env.DEBUG': JSON.stringify(isDebug),
+                'process.env.PORT': JSON.stringify(process.env.PORT)
+            }),
             new HtmlWebpackPlugin({
                 template: 'index.ejs',
                 filename: 'index.ejs',
@@ -78,22 +98,31 @@ module.exports = (env) => {
                     removeComments: true,
                     collapseWhitespace: true,
                     conservativeCollapse: true
-                },
-                hash: true
+                }
             }),
             new MiniCssExtractPlugin({
                 // Options similar to the same options in webpackOptions.output
                 // both options are optional
-                filename: '[name].css',
-                chunkFilename: '[name].css'
+                filename: !isProd ? '[name].css' : '[name].[hash].css',
+                chunkFilename: !isProd ? '[id].css' : '[id].[hash].css',
             }),
-            !isProd ? new BundleAnalyzerPlugin({}) : () => {},
+            new BundleAnalyzerPlugin({
+                analyzerMode: 'static',
+                openAnalyzer: false,
+                reportFilename: 'bundles-report/index.html'
+            })
+            // process.env.NODE_ENV_DOCKER ? new BundleAnalyzerPlugin({
+            //     analyzerMode: 'static',
+            //     openAnalyzer: false
+            // }) : new BundleAnalyzerPlugin({})
         ],
-        devServer: {
-            port: !isProd && config.devPort,
+        devServer: { // when not prod - NODE_ENV_DOCKER taken from docker-compose env
+            port: config.port + 1,
             open: true,
-            proxy: { '/api': { target: !isProd && config.host } },
-            historyApiFallback: { index: '/index.ejs' }
+            host: process.env.NODE_ENV_DOCKER ? '0.0.0.0' : 'localhost',
+            proxy: {
+                '/': { target: `http://localhost:${config.port}` }
+            }
         }
     };
 };
