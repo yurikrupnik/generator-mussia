@@ -1,5 +1,5 @@
 # Yeoman Generator for React projects
-[![Build Status](https://travis-ci.org/yurikrupnik/generator-mussia.svg?branch=master)](https://travis-ci.org/yurikrupnik/generator-mussia)
+[![Build Status](https://travis-ci.org/yurikrupnik/generator-mussia.svg?branch=master)](https://travis-ci.org/yurikrupnik/generator-mussia) [![Greenkeeper badge](https://badges.greenkeeper.io/yurikrupnik/generator-mussia.svg)](https://greenkeeper.io/)
 
 > Yeoman generator for creating Client or Fullstack applications,
  using ES2017, MongoDB, Express, React, and Node - built upon modules 
