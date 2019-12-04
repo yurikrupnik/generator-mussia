@@ -61,13 +61,13 @@ class App extends Generator {
             this.fs.copyTpl(
                 this.templatePath('webpack/**'),
                 this.destinationRoot(),
-                filters
+                {filters}
             );
         } else {
             this.fs.copyTpl(
                 this.templatePath('webpack/webpack.config.client.js'),
                 this.destinationPath('webpack.config.client.js'),
-                filters
+                {filters}
             );
         }
     }
