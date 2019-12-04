@@ -117,7 +117,7 @@ module.exports = env => {
                 '/': { target: `http://localhost:${config.port}` }
             }
             <%_ } _%>
-            <%_ if(filters.fullstack) { _%>
+            <%_ if(!filters.fullstack) { _%>
             index: 'index.ejs',
             historyApiFallback: true
             <%_ } _%>
