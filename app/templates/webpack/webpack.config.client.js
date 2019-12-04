@@ -37,7 +37,7 @@ module.exports = env => {
             rules: [
                 {
                     test: /\.(js|jsx)$/,
-                    use: ['babel-loader', 'eslint-loader'],
+                    use: ['babel-loader'],
                     exclude: /node_modules/,
                 },
                 {
@@ -48,8 +48,9 @@ module.exports = env => {
                         {
                             loader: 'css-loader',
                             options: {
-                                modules: true,
-                                localIdentName: isProd ? '[hash:base64]' : '[local]--[hash:base64:5]'
+                                modules: {
+                                    localIdentName: isProd ? '[hash:base64]' : '[local]--[hash:base64:5]'
+                                }
                             }
                         },
                         {
@@ -111,9 +112,15 @@ module.exports = env => {
             port: config.port + 1,
             open: true,
             host: process.env.NODE_ENV_DOCKER ? '0.0.0.0' : 'localhost',
+            <%_ if(filters.fullstack) { _%>
             proxy: {
                 '/': { target: `http://localhost:${config.port}` }
             }
+            <%_ } _%>
+            <%_ if(filters.fullstack) { _%>
+            index: 'index.ejs',
+            historyApiFallback: true
+            <%_ } _%>
         }
     };
 };

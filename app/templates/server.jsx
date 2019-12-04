@@ -35,17 +35,17 @@ app.use(db(databaseUrl));
 app.use(passport(app));
 <%_ } _%>
 app.use(api);
-app.use((req, res, next) => {
-    console.log('req.url', req.url); // eslint-disable-line no-console
-    console.log('req.session', req.session.id); // eslint-disable-line no-console
-    console.log('req.user', req.user); // eslint-disable-line no-console
-    if (req.isAuthenticated()) {
-        console.log('Authenticated'); // eslint-disable-line no-console
-    } else {
-        console.log('Authenticated not'); // eslint-disable-line no-console
-    }
-    return next();
-});
+// app.use((req, res, next) => {
+//     console.log('req.url', req.url); // eslint-disable-line no-console
+//     console.log('req.session', req.session.id); // eslint-disable-line no-console
+//     console.log('req.user', req.user); // eslint-disable-line no-console
+//     if (req.isAuthenticated()) {
+//         console.log('Authenticated'); // eslint-disable-line no-console
+//     } else {
+//         console.log('Authenticated not'); // eslint-disable-line no-console
+//     }
+//     return next();
+// });
 app.use(render(<%= filters.render ? "App, routes": "" %>));
 
 <%= filters.io ? 'server(app)' : 'app' %>.listen(port, (err) => {

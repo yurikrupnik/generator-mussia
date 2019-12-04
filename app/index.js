@@ -60,12 +60,14 @@ class App extends Generator {
         if (filters.fullstack) {
             this.fs.copyTpl(
                 this.templatePath('webpack/**'),
-                this.destinationRoot()
+                this.destinationRoot(),
+                filters
             );
         } else {
-            this.fs.copy(
+            this.fs.copyTpl(
                 this.templatePath('webpack/webpack.config.client.js'),
-                this.destinationPath('webpack.config.client.js')
+                this.destinationPath('webpack.config.client.js'),
+                filters
             );
         }
     }
